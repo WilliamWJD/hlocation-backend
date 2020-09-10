@@ -27,8 +27,6 @@ export default function authMiddleware(
 
     const { sub } = decoded as TokenPayload;
 
-    console.log(decoded);
-
     req.user = {
       id: sub,
     };

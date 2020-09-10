@@ -1,7 +1,9 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getCustomRepository } from 'typeorm';
 
 import Propertie from '../models/Propertie';
 import User from '../models/User';
+
+import PropertieRepository from '../repositories/PropertieRepository';
 
 interface Request {
   title: string;
@@ -21,13 +23,20 @@ class CreatePropertieService {
   }: Request): Promise<Propertie> {
     const propertieRepository = getRepository(Propertie);
     const userRepository = getRepository(User);
+    const propertieCustomRepository = getCustomRepository(PropertieRepository);
 
-    const userPropertie = await userRepository.findOne({
+    const userExists = await userRepository.findOne({
       where: { id: user_id },
     });
 
-    if (!userPropertie) {
+    if (!userExists) {
       throw Error('User not found');
+    }
+
+    const checkPropertie = await propertieCustomRepository.getByTitle(title);
+
+    if (checkPropertie) {
+      throw Error('Propertie already exists');
     }
 
     const propertie = propertieRepository.create({
@@ -35,7 +44,7 @@ class CreatePropertieService {
       description,
       number,
       rent_money,
-      user: userPropertie,
+      user: userExists,
     });
 
     await propertieRepository.save(propertie);

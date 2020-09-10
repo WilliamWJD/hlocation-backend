@@ -4,8 +4,12 @@ import Propertie from '../models/Propertie';
 
 @EntityRepository(Propertie)
 class PropertieRepository extends Repository<Propertie> {
-  public async getUserPropertie(): Promise<void> {
-    return null;
+  public async getByTitle(title: string): Promise<Propertie | null> {
+    const getPropertie = await this.findOne({
+      where: { title },
+    });
+
+    return getPropertie || null;
   }
 }
 
