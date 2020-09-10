@@ -2,6 +2,8 @@ import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+import authConfig from '../config/auth';
+
 import User from '../models/User';
 
 interface Request {
@@ -32,9 +34,9 @@ class SessionService {
       throw Error('Email or Password invalid');
     }
 
-    const token = jwt.sign({}, 'bd2b25a1acebe49300879f4460ac82c3', {
+    const token = jwt.sign({}, authConfig.secret, {
       subject: user.id,
-      expiresIn: '7d',
+      expiresIn: authConfig.expiresIn,
     });
 
     return { user, token };
