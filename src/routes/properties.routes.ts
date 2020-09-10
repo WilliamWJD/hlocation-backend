@@ -2,9 +2,9 @@ import { Router } from 'express';
 
 import PropertiesController from '../controllers/PropertiesController';
 
-const routes = Router();
+const propertieRoutes = Router();
 
-routes.get('/', PropertiesController.index);
-routes.post('/', PropertiesController.store);
+propertieRoutes.get('/', PropertiesController.index);
+propertieRoutes.post('/', PropertiesController.store);
 
-export default routes;
+export default propertieRoutes;

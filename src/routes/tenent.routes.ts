@@ -2,9 +2,9 @@ import { Router } from 'express';
 
 import TenentController from '../controllers/TenentController';
 
-const routes = Router();
+const tenentRoutes = Router();
 
-routes.get('/', TenentController.index);
-routes.post('/', TenentController.store);
+tenentRoutes.get('/', TenentController.index);
+tenentRoutes.post('/', TenentController.store);
 
-export default routes;
+export default tenentRoutes;
