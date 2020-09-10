@@ -5,7 +5,7 @@ import CreatePropertieService from '../services/CreatePropertieService';
 class PropertiesController {
   async store(req: Request, res: Response) {
     try {
-      const { title, description, number, rent_money, user_id } = req.body;
+      const { title, description, number, rent_money } = req.body;
 
       const createPropertie = new CreatePropertieService();
 
@@ -14,7 +14,7 @@ class PropertiesController {
         description,
         number,
         rent_money,
-        user_id,
+        user_id: req.user.id,
       });
 
       return res.json(propertie);
