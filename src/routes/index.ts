@@ -3,10 +3,13 @@ import { Router } from 'express';
 import userRoutes from './users.routes';
 import tenentRoutes from './tenent.routes';
 import propertieRoutes from './properties.routes';
+import sessionRoutes from './session.routes';
 
 const routes = Router();
 
 routes.use('/users', userRoutes);
+
+routes.use('/sessions', sessionRoutes);
 
 routes.use('/tenents', tenentRoutes);
 
