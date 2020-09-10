@@ -33,7 +33,10 @@ class CreatePropertieService {
       throw Error('User not found');
     }
 
-    const checkPropertie = await propertieCustomRepository.getByTitle(title);
+    const checkPropertie = await propertieCustomRepository.getByTitle(
+      title,
+      user_id,
+    );
 
     if (checkPropertie) {
       throw Error('Propertie already exists');

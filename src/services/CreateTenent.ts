@@ -12,6 +12,7 @@ interface Request {
   phone1: string;
   phone2: string;
   email: string;
+  user_id: string;
 }
 
 class CreateTenentService {
@@ -25,12 +26,14 @@ class CreateTenentService {
     phone1,
     phone2,
     email,
+    user_id,
   }: Request): Promise<Tenent> {
     const tenentRepository = getRepository(Tenent);
 
     const findByCpf = await tenentRepository.findOne({
       where: {
         cpf,
+        user_id,
       },
     });
 
@@ -41,6 +44,7 @@ class CreateTenentService {
     const findByRg = await tenentRepository.findOne({
       where: {
         rg,
+        user_id,
       },
     });
 
@@ -52,6 +56,7 @@ class CreateTenentService {
       const findByMail = await tenentRepository.findOne({
         where: {
           email,
+          user_id,
         },
       });
 
@@ -70,6 +75,7 @@ class CreateTenentService {
       phone1,
       phone2,
       email,
+      user_id,
     });
 
     await tenentRepository.save(tenent);
