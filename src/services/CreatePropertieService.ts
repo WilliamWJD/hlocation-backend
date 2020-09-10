@@ -1,5 +1,7 @@
 import { getRepository } from 'typeorm';
+
 import Propertie from '../models/Propertie';
+import User from '../models/User';
 
 interface Request {
   title: string;
@@ -17,7 +19,28 @@ class CreatePropertieService {
     rent_money,
     user_id,
   }: Request): Promise<Propertie> {
-    return null;
+    const propertieRepository = getRepository(Propertie);
+    const userRepository = getRepository(User);
+
+    const userPropertie = await userRepository.findOne({
+      where: { id: user_id },
+    });
+
+    if (!userPropertie) {
+      throw Error('User not found');
+    }
+
+    const propertie = propertieRepository.create({
+      title,
+      description,
+      number,
+      rent_money,
+      user: userPropertie,
+    });
+
+    await propertieRepository.save(propertie);
+
+    return propertie;
   }
 }
 
