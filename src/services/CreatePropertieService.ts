@@ -1,5 +1,7 @@
 import { getRepository, getCustomRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 import Propertie from '../models/Propertie';
 import User from '../models/User';
 
@@ -30,7 +32,7 @@ class CreatePropertieService {
     });
 
     if (!userExists) {
-      throw Error('User not found');
+      throw new AppError('User not found');
     }
 
     const checkPropertie = await propertieCustomRepository.getByTitle(
@@ -39,7 +41,7 @@ class CreatePropertieService {
     );
 
     if (checkPropertie) {
-      throw Error('Propertie already exists');
+      throw new AppError('User not found');
     }
 
     const propertie = propertieRepository.create({

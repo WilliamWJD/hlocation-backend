@@ -17,38 +17,34 @@ class TenentController {
   }
 
   async store(req: Request, res: Response) {
-    try {
-      const {
-        name,
-        rg,
-        cpf,
-        genre,
-        profession,
-        marital_status,
-        phone1,
-        phone2,
-        email,
-      } = req.body;
+    const {
+      name,
+      rg,
+      cpf,
+      genre,
+      profession,
+      marital_status,
+      phone1,
+      phone2,
+      email,
+    } = req.body;
 
-      const createTenent = new TenentService();
+    const createTenent = new TenentService();
 
-      const tenent = await createTenent.execute({
-        name,
-        rg,
-        cpf,
-        genre,
-        profession,
-        marital_status,
-        phone1,
-        phone2,
-        email,
-        user_id: req.user.id,
-      });
+    const tenent = await createTenent.execute({
+      name,
+      rg,
+      cpf,
+      genre,
+      profession,
+      marital_status,
+      phone1,
+      phone2,
+      email,
+      user_id: req.user.id,
+    });
 
-      return res.json(tenent);
-    } catch (err) {
-      return res.json(err.message);
-    }
+    return res.json(tenent);
   }
 }
 

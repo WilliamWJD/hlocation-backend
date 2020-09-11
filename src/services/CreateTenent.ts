@@ -2,6 +2,8 @@ import { getRepository } from 'typeorm';
 
 import Tenent from '../models/Tenents';
 
+import AppError from '../errors/AppError';
+
 interface Request {
   name: string;
   rg: string;
@@ -38,7 +40,7 @@ class CreateTenentService {
     });
 
     if (findByCpf) {
-      throw Error('This cpf already registered');
+      throw new AppError('This cpf already registered');
     }
 
     const findByRg = await tenentRepository.findOne({
@@ -49,7 +51,7 @@ class CreateTenentService {
     });
 
     if (findByRg) {
-      throw Error('This RG already registered');
+      throw new AppError('This cpf already registered');
     }
 
     if (email) {
@@ -61,7 +63,7 @@ class CreateTenentService {
       });
 
       if (findByMail) {
-        throw Error('This email already registered');
+        throw new AppError('This cpf already registered');
       }
     }
 

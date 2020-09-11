@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
+import AppError from '../errors/AppError';
+
 import authConfig from '../config/auth';
 
 interface TokenPayload {
@@ -17,7 +19,7 @@ export default function authMiddleware(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw Error('JWT Token is missing');
+    throw new AppError('JWT Token is missing', 401);
   }
 
   const [, token] = authHeader.split(' ');
@@ -33,6 +35,6 @@ export default function authMiddleware(
 
     return next();
   } catch (err) {
-    throw Error('Invalid JWT Token');
+    throw new AppError('Invalid JWT Token', 401);
   }
 }
