@@ -1,6 +1,8 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getCustomRepository } from 'typeorm';
 
 import Tenent from '../models/Tenents';
+
+import TenentCustomRepository from '../repositories/TenentRepository';
 
 import AppError from '../errors/AppError';
 
@@ -31,40 +33,24 @@ class CreateTenentService {
     user_id,
   }: Request): Promise<Tenent> {
     const tenentRepository = getRepository(Tenent);
+    const tenentCustomRepository = getCustomRepository(TenentCustomRepository);
 
-    const findByCpf = await tenentRepository.findOne({
-      where: {
-        cpf,
-        user_id,
-      },
-    });
+    const tenentByCpf = await tenentCustomRepository.findByCpf(cpf);
 
-    if (findByCpf) {
+    if (tenentByCpf) {
       throw new AppError('This cpf already registered');
     }
 
-    const findByRg = await tenentRepository.findOne({
-      where: {
-        rg,
-        user_id,
-      },
-    });
+    const tenentByRg = await tenentCustomRepository.findByRg(rg);
 
-    if (findByRg) {
-      throw new AppError('This cpf already registered');
+    if (tenentByRg) {
+      throw new AppError('This rg already registered');
     }
 
-    if (email) {
-      const findByMail = await tenentRepository.findOne({
-        where: {
-          email,
-          user_id,
-        },
-      });
+    const tenentByMail = await tenentCustomRepository.findByEmail(email);
 
-      if (findByMail) {
-        throw new AppError('This cpf already registered');
-      }
+    if (tenentByMail) {
+      throw new AppError('This email already registered');
     }
 
     const tenent = tenentRepository.create({
