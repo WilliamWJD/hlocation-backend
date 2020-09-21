@@ -12,7 +12,7 @@ const routes = Router();
 
 routes.use('/sessions', sessionRoutes);
 
-// routes.use(authMiddleware);
+routes.use(authMiddleware);
 
 routes.use('/users', userRoutes);
 

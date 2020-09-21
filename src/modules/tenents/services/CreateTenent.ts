@@ -38,19 +38,22 @@ class CreateTenentService {
     email,
     user_id,
   }: IRequest): Promise<Tenent> {
-    const tenentByCpf = await this.tenentRepository.findByCpf(cpf);
+    const tenentByCpf = await this.tenentRepository.findByCpf(cpf, user_id);
 
     if (tenentByCpf) {
       throw new AppError('This cpf already registered');
     }
 
-    const tenentByRg = await this.tenentRepository.findByRg(rg);
+    const tenentByRg = await this.tenentRepository.findByRg(rg, user_id);
 
     if (tenentByRg) {
       throw new AppError('This rg already registered');
     }
 
-    const tenentByMail = await this.tenentRepository.findByEmail(email);
+    const tenentByMail = await this.tenentRepository.findByEmail(
+      email,
+      user_id,
+    );
 
     if (tenentByMail) {
       throw new AppError('This email already registered');

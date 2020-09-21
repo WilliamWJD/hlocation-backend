@@ -12,25 +12,34 @@ class TenentRepository implements ITenentRepository {
     this.ormRepository = getRepository(Tenent);
   }
 
-  public async findByCpf(cpf: string): Promise<Tenent | undefined> {
+  public async findByCpf(
+    cpf: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
     const tenent = await this.ormRepository.findOne({
-      where: { cpf },
+      where: { cpf, user_id },
     });
 
     return tenent || undefined;
   }
 
-  public async findByRg(rg: string): Promise<Tenent | undefined> {
+  public async findByRg(
+    rg: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
     const tenent = await this.ormRepository.findOne({
-      where: { rg },
+      where: { rg, user_id },
     });
 
     return tenent || undefined;
   }
 
-  public async findByEmail(email: string): Promise<Tenent | undefined> {
+  public async findByEmail(
+    email: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
     const tenent = await this.ormRepository.findOne({
-      where: { email },
+      where: { email, user_id },
     });
 
     return tenent || undefined;
