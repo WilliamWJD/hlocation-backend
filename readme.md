@@ -31,5 +31,18 @@ Projeto desenvolvido com as seguintes tecnologias:
 5. Rode o comando `yarn sequelize db:migrate` para rodar as migrations do projeto
 6. Rode o comando `yarn dev` para subir o servidor
 
-## Insomnia
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Metis%20-%20Gest%C3%A3o%20de%20Im%C3%B3veis&uri=https%3A%2F%2Fraw.githubusercontent.com%2FWilliamWJD%2FMetis%2Fmaster%2FInsomnia_2020-02-06.json)
+## 🤔 Como contribuir
+
+- Faça um fork desse repositório;
+- Cria uma branch com a sua feature: `git checkout -b minha-feature`;
+- Faça commit das suas alterações: `git commit -m 'feat: Minha nova feature'`;
+- Faça push para a sua branch: `git push origin minha-feature`.
+
+
+## :memo: Licença
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+
+---
+
+Desenvolvido por [William José Dias!](https://github.com/WilliamWJD)
