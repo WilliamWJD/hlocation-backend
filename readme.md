@@ -27,9 +27,9 @@ Projeto desenvolvido com as seguintes tecnologias:
 1. Faça o download do projeto
 2. Na pasta backend rode o comando `yarn` para instalar todas as dependências necessárias
 3. Crie um arquivo `.env` seguindo a base do `.env.example`
-4. Rode o comando `yarn add sequelize-cli -D` para instalar o cli do sequelize
-5. Rode o comando `yarn sequelize db:migrate` para rodar as migrations do projeto
-6. Rode o comando `yarn dev` para subir o servidor
+4. Rode o comando `yarn typeorm migration:run` para rodar as migrations do projeto
+5. Ajuste o arquivo `typeorm.json` de acordo com suas configurações de banco de dados
+5. Rode o comando `yarn dev:server` para subir o servidor
 
 ## 🤔 Como contribuir
 
