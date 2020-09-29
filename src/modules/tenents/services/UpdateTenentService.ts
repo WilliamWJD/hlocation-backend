@@ -52,7 +52,7 @@ class UpdateTenentService {
 
     const tenent = await this.tenentRepository.findById(id);
 
-    if (!tenent) {
+    if (user.id !== tenent.user_id) {
       throw new AppError('Tenent not found');
     }
 
