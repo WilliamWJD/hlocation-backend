@@ -15,5 +15,6 @@ userRoutes.patch(
   upload.single('avatar'),
   UpdataUserAvatarController.save,
 );
+userRoutes.put('/', UserController.update);
 
 export default userRoutes;

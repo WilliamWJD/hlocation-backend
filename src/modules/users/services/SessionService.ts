@@ -26,7 +26,7 @@ class SessionService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) { }
+  ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.sessionRepository.findByEmail(email);

@@ -31,7 +31,7 @@ class CreateLocationService {
 
     @inject('TenentRepository')
     private tenentRepository: ITenentRepository,
-  ) { }
+  ) {}
 
   public async execute({
     user_id,
