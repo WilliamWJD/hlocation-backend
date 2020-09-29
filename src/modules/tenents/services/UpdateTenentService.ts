@@ -4,9 +4,11 @@ import AppError from '@shared/errors/AppError';
 
 import Tenent from '@modules/tenents/infra/typeorm/entities/Tenents';
 
+import IUserRepository from '@modules/users/repositories/IUserRepository';
 import ITenentRepository from '../repositories/ITenentRepository';
 
 interface IRequest {
+  id: string;
   name: string;
   rg: string;
   cpf: string;
@@ -20,13 +22,17 @@ interface IRequest {
 }
 
 @injectable()
-class CreateTenentService {
+class UpdateTenentService {
   constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+
     @inject('TenentRepository')
     private tenentRepository: ITenentRepository,
   ) {}
 
   public async execute({
+    id,
     name,
     rg,
     cpf,
@@ -38,42 +44,45 @@ class CreateTenentService {
     email,
     user_id,
   }: IRequest): Promise<Tenent> {
+    const user = await this.userRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('User not found');
+    }
+
+    const tenent = await this.tenentRepository.findById(id);
+
+    if (!tenent) {
+      throw new AppError('Tenent not found');
+    }
+
     const tenentByCpf = await this.tenentRepository.findByCpf(cpf, user_id);
 
-    if (tenentByCpf) {
+    if (tenentByCpf && tenentByCpf.cpf !== tenent.cpf) {
       throw new AppError('This cpf already registered');
     }
 
     const tenentByRg = await this.tenentRepository.findByRg(rg, user_id);
 
-    if (tenentByRg) {
+    if (tenentByRg && tenentByRg.rg !== tenent.id) {
       throw new AppError('This rg already registered');
     }
 
-    // const tenentByMail = await this.tenentRepository.findByEmail(
-    //   email,
-    //   user_id,
-    // );
+    tenent.name = name;
+    tenent.rg = rg;
+    tenent.cpf = cpf;
+    tenent.genre = genre;
+    tenent.profession = profession;
+    tenent.marital_status = marital_status;
+    tenent.phone1 = phone1;
+    tenent.phone2 = phone2;
+    tenent.email = email;
+    tenent.user = user;
 
-    // if (tenentByMail) {
-    //   throw new AppError('This email already registered');
-    // }
+    const updateTenent = await this.tenentRepository.save(tenent);
 
-    const tenent = await this.tenentRepository.create({
-      name,
-      rg,
-      cpf,
-      genre,
-      profession,
-      marital_status,
-      phone1,
-      phone2,
-      email,
-      user_id,
-    });
-
-    return tenent;
+    return updateTenent;
   }
 }
 
-export default CreateTenentService;
+export default UpdateTenentService;

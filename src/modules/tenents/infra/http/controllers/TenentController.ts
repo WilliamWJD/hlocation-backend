@@ -2,6 +2,7 @@ import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 
 import CreateTenentService from '@modules/tenents/services/CreateTenent';
+import UpdateTenentService from '@modules/tenents/services/UpdateTenentService';
 
 class TenentController {
   async store(req: Request, res: Response) {
@@ -32,6 +33,15 @@ class TenentController {
       user_id: req.user.id,
     });
 
+    return res.json(tenent);
+  }
+
+  async update(req: Request, res: Response): Promise<Response> {
+    const updateTenent = container.resolve(UpdateTenentService);
+    const tenent = await updateTenent.execute({
+      user_id: req.user.id,
+      ...req.body,
+    });
     return res.json(tenent);
   }
 }

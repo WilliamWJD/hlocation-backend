@@ -55,6 +55,11 @@ class TenentRepository implements ITenentRepository {
     await this.ormRepository.save(tenent);
     return tenent;
   }
+
+  public async save(data: ICreateTenentDTO): Promise<Tenent> {
+    const tenent = await this.ormRepository.save(data);
+    return tenent;
+  }
 }
 
 export default TenentRepository;
