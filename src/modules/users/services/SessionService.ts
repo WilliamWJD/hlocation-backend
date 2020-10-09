@@ -22,14 +22,14 @@ interface IResponse {
 class SessionService {
   constructor(
     @inject('UserRepository')
-    private sessionRepository: IUserRepository,
+    private userRepository: IUserRepository,
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
-    const user = await this.sessionRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError('Email or Password invalid', 401);

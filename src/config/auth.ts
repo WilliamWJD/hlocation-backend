@@ -1,6 +1,4 @@
-import 'dotenv/config';
-
 export default {
-  secret: process.env.SECRET,
-  expiresIn: process.env.EXPIRES,
+  secret: '1031f021644022d202d25fa0e12581c6',
+  expiresIn: '7d',
 };
