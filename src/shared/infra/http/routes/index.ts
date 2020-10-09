@@ -11,10 +11,9 @@ import locationRoutes from '@modules/locations/infra/http/routes/locations.route
 const routes = Router();
 
 routes.use('/sessions', sessionRoutes);
+routes.use('/users', userRoutes);
 
 routes.use(authMiddleware);
-
-routes.use('/users', userRoutes);
 
 routes.use('/tenents', tenentRoutes);
 
