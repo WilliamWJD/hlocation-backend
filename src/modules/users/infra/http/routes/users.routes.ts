@@ -3,6 +3,8 @@ import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 
+import authMiddleware from '@modules/users/infra/http/middlewares/auth';
+
 import UserController from '../controllers/UserController';
 import UpdataUserAvatarController from '../controllers/UpdataUserAvatarController';
 
@@ -12,6 +14,7 @@ const upload = multer(uploadConfig);
 userRoutes.post('/', UserController.store);
 userRoutes.patch(
   '/avatar',
+  authMiddleware,
   upload.single('avatar'),
   UpdataUserAvatarController.save,
 );
