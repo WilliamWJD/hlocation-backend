@@ -7,5 +7,5 @@ export default interface ITenentRepository {
   findByEmail(email: string, user_id: string): Promise<Tenent | undefined>;
   findById(id: string): Promise<Tenent | undefined>;
   create(data: ICreateTenentDTO): Promise<Tenent>;
-  save(data: ICreateTenentDTO): Promise<Tenent>;
+  save(data: Tenent): Promise<Tenent>;
 }
