@@ -50,15 +50,6 @@ class CreateTenentService {
       throw new AppError('This rg already registered');
     }
 
-    // const tenentByMail = await this.tenentRepository.findByEmail(
-    //   email,
-    //   user_id,
-    // );
-
-    // if (tenentByMail) {
-    //   throw new AppError('This email already registered');
-    // }
-
     const tenent = await this.tenentRepository.create({
       name,
       rg,

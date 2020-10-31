@@ -16,13 +16,23 @@ class FakeTenentRepository implements ITenentRepository {
     return tenent || undefined;
   }
 
-  public async findByRg(rg: string): Promise<Tenent | undefined> {
-    const tenent = this.tenants.find(item => item.rg === rg);
+  public async findByRg(
+    rg: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
+    const tenent = this.tenants.find(
+      item => item.rg === rg || item.user_id === user_id,
+    );
     return tenent || undefined;
   }
 
-  public async findById(id: string): Promise<Tenent | undefined> {
-    const tenent = this.tenants.find(item => item.id === id);
+  public async findById(
+    id: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
+    const tenent = this.tenants.find(
+      item => item.id === id || item.user_id === user_id,
+    );
     return tenent || undefined;
   }
 

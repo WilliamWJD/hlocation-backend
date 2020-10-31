@@ -45,8 +45,16 @@ class TenentRepository implements ITenentRepository {
     return tenent || undefined;
   }
 
-  public async findById(id: string): Promise<Tenent | undefined> {
-    const tenent = await this.ormRepository.findOne(id);
+  public async findById(
+    id: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
+    const tenent = await this.ormRepository.findOne({
+      where: {
+        id,
+        user_id,
+      },
+    });
     return tenent;
   }
 

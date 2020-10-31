@@ -85,4 +85,40 @@ describe('CreateTenant', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to create an tanent with rg duplicated', async () => {
+    const user = await createUserService.execute({
+      name: 'Fulano',
+      email: 'fulano@email.com.br',
+      password: '123456',
+    });
+
+    await createTenentService.execute({
+      name: 'Tenant',
+      email: 'tenant@email.com.br',
+      cpf: '123456',
+      rg: '123456',
+      genre: 'M',
+      marital_status: 'Casado',
+      phone1: '123456',
+      phone2: '123456',
+      profession: 'dev',
+      user_id: user.id,
+    });
+
+    await expect(
+      createTenentService.execute({
+        name: 'Tenant2',
+        email: 'tenant2@email.com.br',
+        cpf: '1234561',
+        rg: '123456',
+        genre: 'M',
+        marital_status: 'Casado',
+        phone1: '123456',
+        phone2: '123456',
+        profession: 'dev',
+        user_id: user.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

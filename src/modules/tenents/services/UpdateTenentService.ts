@@ -50,23 +50,23 @@ class UpdateTenentService {
       throw new AppError('User not found');
     }
 
-    const tenent = await this.tenentRepository.findById(id);
+    const tenent = await this.tenentRepository.findById(id, user_id);
 
-    if (user.id !== tenent.user_id) {
+    if (!tenent) {
       throw new AppError('Tenent not found');
     }
 
-    const tenentByCpf = await this.tenentRepository.findByCpf(cpf, user_id);
+    // const tenentByCpf = await this.tenentRepository.findByCpf(cpf, user_id);
 
-    if (tenentByCpf && tenentByCpf.cpf !== tenent.cpf) {
-      throw new AppError('This cpf already registered');
-    }
+    // if (tenentByCpf && tenentByCpf.cpf !== tenent.cpf) {
+    //   throw new AppError('This cpf already registered');
+    // }
 
-    const tenentByRg = await this.tenentRepository.findByRg(rg, user_id);
+    // const tenentByRg = await this.tenentRepository.findByRg(rg, user_id);
 
-    if (tenentByRg && tenentByRg.rg !== tenent.id) {
-      throw new AppError('This rg already registered');
-    }
+    // if (tenentByRg && tenentByRg.rg !== tenent.id) {
+    //   throw new AppError('This rg already registered');
+    // }
 
     tenent.name = name;
     tenent.rg = rg;
