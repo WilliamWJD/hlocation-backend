@@ -6,8 +6,13 @@ import ITenentRepository from '../ITenentRepository';
 class FakeTenentRepository implements ITenentRepository {
   private tenants: Tenent[] = [];
 
-  public async findByCpf(cpf: string): Promise<Tenent | undefined> {
-    const tenent = this.tenants.find(item => item.cpf === cpf);
+  public async findByCpf(
+    cpf: string,
+    user_id: string,
+  ): Promise<Tenent | undefined> {
+    const tenent = this.tenants.find(
+      item => item.cpf === cpf && item.user_id === user_id,
+    );
     return tenent || undefined;
   }
 
@@ -21,7 +26,7 @@ class FakeTenentRepository implements ITenentRepository {
     user_id: string,
   ): Promise<Tenent | undefined> {
     const tenent = this.tenants.find(
-      item => item.rg === rg || item.user_id === user_id,
+      item => item.rg === rg && item.user_id === user_id,
     );
     return tenent || undefined;
   }
