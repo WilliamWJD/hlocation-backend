@@ -36,7 +36,7 @@ class FakeTenentRepository implements ITenentRepository {
     user_id: string,
   ): Promise<Tenent | undefined> {
     const tenent = this.tenants.find(
-      item => item.id === id || item.user_id === user_id,
+      item => item.id === id && item.user_id === user_id,
     );
     return tenent || undefined;
   }

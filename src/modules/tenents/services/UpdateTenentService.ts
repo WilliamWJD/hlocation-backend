@@ -62,6 +62,12 @@ class UpdateTenentService {
       throw new AppError('This cpf already registered');
     }
 
+    const tenentByRg = await this.tenentRepository.findByRg(rg, user_id);
+
+    if (tenentByRg && tenentByRg.id !== id) {
+      throw new AppError('This RG already registered');
+    }
+
     tenent.name = name;
     tenent.rg = rg;
     tenent.cpf = cpf;

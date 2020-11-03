@@ -122,4 +122,128 @@ describe('UpdateTanent', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to update a tanent with rg duplicated', async () => {
+    const user = await createUserService.execute({
+      name: 'fulano',
+      email: 'fulano@email.com.br',
+      password: '123456',
+    });
+
+    await createTanentService.execute({
+      name: 'Tenant',
+      email: 'tenant@email.com.br',
+      cpf: '111111',
+      rg: '111111',
+      genre: 'M',
+      marital_status: 'Casado',
+      phone1: '123456',
+      phone2: '123456',
+      profession: 'dev',
+      user_id: user.id,
+    });
+
+    const tanent = await createTanentService.execute({
+      name: 'Tenant2',
+      email: 'tenant2@email.com.br',
+      cpf: '4564564',
+      rg: '222222',
+      genre: 'M',
+      marital_status: 'Casado',
+      phone1: '123456',
+      phone2: '123456',
+      profession: 'dev',
+      user_id: user.id,
+    });
+
+    await expect(
+      updateTenentService.execute({
+        name: 'Tenant3',
+        email: 'tenant3@email.com.br',
+        cpf: '4564564',
+        rg: '111111',
+        genre: 'M',
+        marital_status: 'Casado',
+        phone1: '123456',
+        phone2: '123456',
+        profession: 'dev',
+        user_id: user.id,
+        id: tanent.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to update a tanent with an user not existing', async () => {
+    const user = await createUserService.execute({
+      name: 'fulano',
+      email: 'fulano@email.com.br',
+      password: '123456',
+    });
+
+    const tenant = await createTanentService.execute({
+      name: 'Tenant',
+      email: 'tenant@email.com.br',
+      cpf: '111111',
+      rg: '111111',
+      genre: 'M',
+      marital_status: 'Casado',
+      phone1: '123456',
+      phone2: '123456',
+      profession: 'dev',
+      user_id: user.id,
+    });
+
+    await expect(
+      updateTenentService.execute({
+        name: 'Tenant3',
+        email: 'tenant3@email.com.br',
+        cpf: '4564564',
+        rg: '111111',
+        genre: 'M',
+        marital_status: 'Casado',
+        phone1: '123456',
+        phone2: '123456',
+        profession: 'dev',
+        user_id: 'user-not-existing',
+        id: tenant.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to update a tanent inexisting', async () => {
+    const user = await createUserService.execute({
+      name: 'fulano',
+      email: 'fulano@email.com.br',
+      password: '123456',
+    });
+
+    await createTanentService.execute({
+      name: 'Tenant',
+      email: 'tenant@email.com.br',
+      cpf: '111111',
+      rg: '111111',
+      genre: 'M',
+      marital_status: 'Casado',
+      phone1: '123456',
+      phone2: '123456',
+      profession: 'dev',
+      user_id: user.id,
+    });
+
+    await expect(
+      updateTenentService.execute({
+        name: 'Tenant3',
+        email: 'tenant3@email.com.br',
+        cpf: '4564564',
+        rg: '111111',
+        genre: 'M',
+        marital_status: 'Casado',
+        phone1: '123456',
+        phone2: '123456',
+        profession: 'dev',
+        user_id: user.id,
+        id: 'tenant-not-existing',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
