@@ -23,7 +23,7 @@ class CreatePropertieService {
     private propertieRepository: IPropertiesRepository,
     @inject('UserRepository')
     private userRepository: IUserRepository,
-  ) { }
+  ) {}
 
   public async execute({
     title,
@@ -44,7 +44,7 @@ class CreatePropertieService {
     );
 
     if (checkPropertie) {
-      throw new AppError('User not found');
+      throw new AppError(`The propertie with name ${title} is duplicated`);
     }
 
     const propertie = await this.propertieRepository.create({
@@ -52,7 +52,7 @@ class CreatePropertieService {
       description,
       number,
       rent_money,
-      user: userExists,
+      user_id,
     });
 
     return propertie;
