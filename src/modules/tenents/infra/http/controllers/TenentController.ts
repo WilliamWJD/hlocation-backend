@@ -37,8 +37,11 @@ class TenentController {
   }
 
   async update(req: Request, res: Response): Promise<Response> {
+    const { tenant_id } = req.params;
+
     const updateTenent = container.resolve(UpdateTenentService);
     const tenent = await updateTenent.execute({
+      id: tenant_id,
       user_id: req.user.id,
       ...req.body,
     });

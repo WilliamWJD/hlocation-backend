@@ -15,12 +15,12 @@ class PropertieRepository implements IPropertiesRepository {
   public async getByTitle(
     title: string,
     user_id: string,
-  ): Promise<Propertie | null> {
+  ): Promise<Propertie | undefined> {
     const propertie = await this.ormRepository.findOne({
       where: { title, user_id },
     });
 
-    return propertie || null;
+    return propertie || undefined;
   }
 
   public async findById(

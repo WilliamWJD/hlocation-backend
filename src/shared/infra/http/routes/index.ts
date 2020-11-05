@@ -15,7 +15,7 @@ routes.use('/users', userRoutes);
 
 routes.use(authMiddleware);
 
-routes.use('/tenents', tenentRoutes);
+routes.use('/tenants', tenentRoutes);
 
 routes.use('/properties', propertieRoutes);
 

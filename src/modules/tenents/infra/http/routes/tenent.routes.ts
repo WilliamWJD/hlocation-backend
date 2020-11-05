@@ -6,6 +6,6 @@ const tenentRoutes = Router();
 
 // tenentRoutes.get('/', TenentController.index);
 tenentRoutes.post('/', TenentController.store);
-tenentRoutes.put('/', TenentController.update);
+tenentRoutes.put('/:tenant_id', TenentController.update);
 
 export default tenentRoutes;
