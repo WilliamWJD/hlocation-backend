@@ -12,6 +12,11 @@ class TenentRepository implements ITenentRepository {
     this.ormRepository = getRepository(Tenent);
   }
 
+  public async findAll(user_id: string): Promise<Tenent[] | undefined> {
+    const tenants = await this.ormRepository.find({ where: { user_id } });
+    return tenants;
+  }
+
   public async findByCpf(
     cpf: string,
     user_id: string,

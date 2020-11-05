@@ -79,6 +79,13 @@ class FakeTenentRepository implements ITenentRepository {
     this.tenants[findIndex] = tenent;
     return tenent;
   }
+
+  public async findAll(user_id: string): Promise<Tenent[] | undefined> {
+    const tenantsByUser = this.tenants.filter(
+      tenant => tenant.user_id === user_id,
+    );
+    return tenantsByUser || undefined;
+  }
 }
 
 export default FakeTenentRepository;

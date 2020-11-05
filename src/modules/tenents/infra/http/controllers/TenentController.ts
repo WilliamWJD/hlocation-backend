@@ -3,8 +3,15 @@ import { Request, Response } from 'express';
 
 import CreateTenentService from '@modules/tenents/services/CreateTenent';
 import UpdateTenentService from '@modules/tenents/services/UpdateTenentService';
+import ListTenantsByUser from '@modules/tenents/services/ListAllTenantsByUser';
 
 class TenentController {
+  async index(req: Request, res: Response): Promise<Response> {
+    const listTenantsService = container.resolve(ListTenantsByUser);
+    const tenants = await listTenantsService.execute({ user_id: req.user.id });
+    return res.json(tenants);
+  }
+
   async store(req: Request, res: Response) {
     const {
       name,
