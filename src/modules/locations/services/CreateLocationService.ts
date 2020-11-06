@@ -11,7 +11,7 @@ import ILocationRepository from '../repositories/ILocationRepository';
 
 interface Request {
   user_id: string;
-  tenent_id: string;
+  tenant_id: string;
   propertie_id: string;
   date_start: Date;
   date_end: Date;
@@ -35,7 +35,7 @@ class CreateLocationService {
 
   public async execute({
     user_id,
-    tenent_id,
+    tenant_id,
     propertie_id,
     date_start,
     date_end,
@@ -48,7 +48,7 @@ class CreateLocationService {
     }
 
     // VERIFICA SE O INQUILINO EXISTE
-    const findTenent = await this.tenentRepository.findById(tenent_id);
+    const findTenent = await this.tenentRepository.findById(tenant_id, user_id);
 
     if (!findTenent) {
       throw new AppError('Tenent not found');
@@ -76,9 +76,9 @@ class CreateLocationService {
 
     // CRIA LOCAÇÃO
     const location = await this.locationRepository.create({
-      user: findUser,
-      tenent: findTenent,
-      propertie: findPropertie,
+      user_id,
+      tenant_id,
+      propertie_id,
       date_start,
       date_end,
     });

@@ -14,11 +14,11 @@ class LocationRepository implements ILocationRepository {
   public async findLocationPropertie(
     propertie_id: string,
     user_id: string,
-  ): Promise<Location | null> {
+  ): Promise<Location | undefined> {
     const location = await this.ormRepository.findOne({
       where: { propertie_id, user_id },
     });
-    return location || null;
+    return location || undefined;
   }
 
   public async create(data: ICreateLocationDTO): Promise<Location> {

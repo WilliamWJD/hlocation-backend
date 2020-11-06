@@ -9,4 +9,5 @@ export default interface ITenentRepository {
   create(data: ICreateTenentDTO): Promise<Tenent>;
   save(data: Tenent): Promise<Tenent>;
   findAll(user_id: string): Promise<Tenent[] | undefined>;
+  delete(tenant_id: string, user_id: string): Promise<Tenent>;
 }
