@@ -5,13 +5,13 @@ import LocationService from '@modules/locations/services/CreateLocationService';
 
 class LocationController {
   async store(req: Request, res: Response) {
-    const { tenent_id, propertie_id, date_start, date_end } = req.body;
+    const { tenant_id, propertie_id, date_start, date_end } = req.body;
 
     const createLocation = container.resolve(LocationService);
 
     const location = await createLocation.execute({
       user_id: req.user.id,
-      tenent_id,
+      tenant_id,
       propertie_id,
       date_start,
       date_end,

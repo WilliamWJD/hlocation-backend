@@ -24,11 +24,11 @@ class Location {
   user_id: string;
 
   @ManyToOne(() => Tenent)
-  @JoinColumn({ name: 'tenent_id' })
+  @JoinColumn({ name: 'tenant_id' })
   tenent: Tenent;
 
   @Column()
-  tenent_id: string;
+  tenant_id: string;
 
   @OneToOne(() => Propertie)
   @JoinColumn({ name: 'propertie_id' })

@@ -24,7 +24,7 @@ export default class CreateLocations1599933472944
             type: 'uuid',
           },
           {
-            name: 'tenent_id',
+            name: 'tenant_id',
             type: 'uuid',
           },
           {
@@ -68,7 +68,7 @@ export default class CreateLocations1599933472944
       'locations',
       new TableForeignKey({
         name: 'LocationTenent',
-        columnNames: ['tenent_id'],
+        columnNames: ['tenant_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'tenents',
         onDelete: 'CASCADE',
