@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import CreateTenentService from '@modules/tenents/services/CreateTenent';
 import UpdateTenentService from '@modules/tenents/services/UpdateTenentService';
 import ListTenantsByUser from '@modules/tenents/services/ListAllTenantsByUser';
+import DeleteTenantService from '@modules/tenents/services/DeleteTenantService';
 
 class TenentController {
   async index(req: Request, res: Response): Promise<Response> {
@@ -53,6 +54,19 @@ class TenentController {
       ...req.body,
     });
     return res.json(tenent);
+  }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    const { tenant_id } = req.params;
+
+    const deleteTenant = container.resolve(DeleteTenantService);
+
+    const tenant = await deleteTenant.execute({
+      tenant_id,
+      user_id: req.user.id,
+    });
+
+    return res.json(tenant);
   }
 }
 

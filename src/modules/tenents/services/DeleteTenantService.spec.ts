@@ -65,11 +65,11 @@ describe('Delete Tenant', () => {
       user_id: user.id,
     });
 
-    const deleteTenant = await deleteTenantService.execute({
-      tenant_id: tenant1.id,
-      user_id: user.id,
-    });
-
-    expect(deleteTenant.user_id).toBe(user.id);
+    await expect(
+      deleteTenantService.execute({
+        tenant_id: tenant1.id,
+        user_id: user.id,
+      }),
+    );
   });
 });

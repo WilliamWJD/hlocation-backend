@@ -73,6 +73,15 @@ class TenentRepository implements ITenentRepository {
     const tenent = await this.ormRepository.save(data);
     return tenent;
   }
+
+  public async delete(tenant_id: string, user_id: string): Promise<void> {
+    await this.ormRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Tenent)
+      .where(`id=:id and user_id=:user_id`, { id: tenant_id, user_id })
+      .execute();
+  }
 }
 
 export default TenentRepository;

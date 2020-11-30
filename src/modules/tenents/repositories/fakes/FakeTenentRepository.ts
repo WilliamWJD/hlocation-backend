@@ -87,12 +87,11 @@ class FakeTenentRepository implements ITenentRepository {
     return tenantsByUser || undefined;
   }
 
-  public async delete(tenant_id: string, user_id: string): Promise<Tenent> {
+  public async delete(tenant_id: string, user_id: string): Promise<void> {
     const tenantIndex = this.tenants.findIndex(
       tenant => tenant.id === tenant_id && tenant.user_id === user_id,
     );
     this.tenants.splice(tenantIndex, 1);
-    return this.tenants[tenantIndex];
   }
 }
 
