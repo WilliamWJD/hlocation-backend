@@ -4,6 +4,7 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import FakeTenentRepository from '../repositories/fakes/FakeTenentRepository';
 import CreateTenentService from './CreateTenent';
 import DeleteTenantService from './DeleteTenantService';
+import ListAllTenantsByUser from './ListAllTenantsByUser';
 
 let fakeTenentRepository: FakeTenentRepository;
 let createTenentService: CreateTenentService;
@@ -13,6 +14,7 @@ let fakeUserRepository: FakeUserRepository;
 let fakeHashProvider: FakeHashProvider;
 
 let deleteTenantService: DeleteTenantService;
+let listAllTenantsByUserService: ListAllTenantsByUser;
 
 describe('Delete Tenant', () => {
   beforeEach(() => {
@@ -29,6 +31,10 @@ describe('Delete Tenant', () => {
     deleteTenantService = new DeleteTenantService(
       fakeTenentRepository,
       fakeUserRepository,
+    );
+
+    listAllTenantsByUserService = new ListAllTenantsByUser(
+      fakeTenentRepository,
     );
   });
 
@@ -65,11 +71,15 @@ describe('Delete Tenant', () => {
       user_id: user.id,
     });
 
-    await expect(
-      deleteTenantService.execute({
-        tenant_id: tenant1.id,
-        user_id: user.id,
-      }),
-    );
+    await deleteTenantService.execute({
+      tenant_id: tenant1.id,
+      user_id: user.id,
+    });
+
+    const listTenants = await listAllTenantsByUserService.execute({
+      user_id: user.id,
+    });
+
+    expect(listTenants).not.toContain(tenant1);
   });
 });
