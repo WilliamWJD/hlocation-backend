@@ -38,6 +38,18 @@ class PropertieRepository implements IPropertiesRepository {
     await this.ormRepository.save(propertie);
     return propertie;
   }
+
+  public async findPropertiesByUser(
+    user_id: string,
+  ): Promise<Propertie[] | undefined> {
+    const properties = this.ormRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    return properties;
+  }
 }
 
 export default PropertieRepository;

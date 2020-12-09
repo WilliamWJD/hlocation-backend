@@ -47,6 +47,16 @@ class FakePropertieRepository implements IPropertiesRepository {
     );
     return propertie || undefined;
   }
+
+  public async findPropertiesByUser(
+    user_id: string,
+  ): Promise<Propertie[] | undefined> {
+    const propertiesByUser = this.properties.filter(
+      properties => properties.user_id === user_id,
+    );
+
+    return propertiesByUser;
+  }
 }
 
 export default FakePropertieRepository;

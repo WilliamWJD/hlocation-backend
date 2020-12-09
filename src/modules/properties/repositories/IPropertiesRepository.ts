@@ -8,4 +8,5 @@ export default interface IPropertiesRepository {
     user_id: string,
   ): Promise<Propertie | undefined>;
   create(data: ICreatePropertieDTO): Promise<Propertie>;
+  findPropertiesByUser(user_id: string): Promise<Propertie[] | undefined>;
 }
