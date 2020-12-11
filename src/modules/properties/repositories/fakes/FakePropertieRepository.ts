@@ -65,6 +65,17 @@ class FakePropertieRepository implements IPropertiesRepository {
 
     this.properties.splice(propertieIndex, 1);
   }
+
+  public async update(propertie: Propertie): Promise<Propertie> {
+    const propertieIndex = this.properties.findIndex(
+      propert =>
+        propertie.id === propert.id && propertie.user_id === propert.user_id,
+    );
+
+    this.properties[propertieIndex] = propertie;
+
+    return propertie;
+  }
 }
 
 export default FakePropertieRepository;

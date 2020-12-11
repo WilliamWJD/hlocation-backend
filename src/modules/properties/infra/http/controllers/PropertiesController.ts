@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import CreatePropertieService from '@modules/properties/services/CreatePropertieService';
 import ListPropertieService from '@modules/properties/services/ListPropertieService';
 import DeletePropertieSevice from '@modules/properties/services/DeletePropertieService';
+import UpdatePropertieService from '@modules/properties/services/UpdatePropertieService';
 
 class PropertiesController {
   async index(req: Request, res: Response): Promise<Response> {
@@ -41,6 +42,24 @@ class PropertiesController {
     });
 
     return res.json();
+  }
+
+  async update(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const { title, description, number, rent_money } = req.body;
+
+    const updatePropertie = container.resolve(UpdatePropertieService);
+
+    const propertie = await updatePropertie.execute({
+      id,
+      title,
+      description,
+      number,
+      rent_money,
+      user_id: req.user.id,
+    });
+
+    return res.json(propertie);
   }
 }
 

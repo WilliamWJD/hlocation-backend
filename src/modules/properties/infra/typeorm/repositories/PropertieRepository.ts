@@ -57,6 +57,11 @@ class PropertieRepository implements IPropertiesRepository {
       user_id,
     });
   }
+
+  public async update(data: Propertie): Promise<Propertie> {
+    const propertie = await this.ormRepository.save(data);
+    return propertie;
+  }
 }
 
 export default PropertieRepository;
