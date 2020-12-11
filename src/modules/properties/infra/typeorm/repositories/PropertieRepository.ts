@@ -50,6 +50,13 @@ class PropertieRepository implements IPropertiesRepository {
 
     return properties;
   }
+
+  public async delete(id: string, user_id: string): Promise<void> {
+    await this.ormRepository.delete({
+      id,
+      user_id,
+    });
+  }
 }
 
 export default PropertieRepository;
