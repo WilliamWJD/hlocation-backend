@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import CreatePropertieService from '@modules/properties/services/CreatePropertieService';
 import ListPropertieService from '@modules/properties/services/ListPropertieService';
+import DeletePropertieSevice from '@modules/properties/services/DeletePropertieService';
 
 class PropertiesController {
   async index(req: Request, res: Response): Promise<Response> {
@@ -27,6 +28,19 @@ class PropertiesController {
     });
 
     return res.json(propertie);
+  }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const deletePropertie = container.resolve(DeletePropertieSevice);
+
+    await deletePropertie.execute({
+      id,
+      user_id: req.user.id,
+    });
+
+    return res.json();
   }
 }
 
