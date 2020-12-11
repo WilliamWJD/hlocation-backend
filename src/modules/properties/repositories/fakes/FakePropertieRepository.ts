@@ -57,6 +57,14 @@ class FakePropertieRepository implements IPropertiesRepository {
 
     return propertiesByUser;
   }
+
+  public async delete(id: string, user_id: string): Promise<void> {
+    const propertieIndex = this.properties.findIndex(
+      propertie => propertie.id === id && propertie.user_id === user_id,
+    );
+
+    this.properties.splice(propertieIndex, 1);
+  }
 }
 
 export default FakePropertieRepository;
