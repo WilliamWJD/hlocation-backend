@@ -28,7 +28,6 @@ describe('Update propertie', () => {
 
     updatePropertieService = new UpdatePropertieService(
       fakePropertieRepository,
-      fakeUserRepository,
     );
   });
 

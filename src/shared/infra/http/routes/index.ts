@@ -10,8 +10,8 @@ import locationRoutes from '@modules/locations/infra/http/routes/locations.route
 
 const routes = Router();
 
-routes.use('/sessions', sessionRoutes);
 routes.use('/users', userRoutes);
+routes.use('/sessions', sessionRoutes);
 
 routes.use(authMiddleware);
 
